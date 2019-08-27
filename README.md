@@ -39,7 +39,7 @@ To train on Pascal VOC data, simply do:
 
 
 
-NOTES:
+## NOTES:
 - config.py contains all settings for the train or test run. The default settings match those in the original Faster-RCNN
 paper. The anchor box sizes are [128, 256, 512] and the ratios are [1:1, 1:2, 2:1].
 - The theano backend by default uses a 7x7 pooling region, instead of 14x14 as in the frcnn paper. This cuts down compiling time slightly.
@@ -53,7 +53,7 @@ Example output:
 ![ex3](http://i.imgur.com/EbvGBaG.png)
 ![ex4](http://i.imgur.com/i5UAgLb.png)
 
-ISSUES:
+## ISSUES:
 
 - If you get this error:
 `ValueError: There is a negative shape in the graph!`    
