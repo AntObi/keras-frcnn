@@ -1,15 +1,14 @@
 # keras-frcnn
-Keras implementation of Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks.
+Keras implementation of [Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks.](https://arxiv.org/pdf/1506.01497.pdf)
 cloned from https://github.com/yhenon/keras-frcnn/
 
 
 
-USAGE:
-- Both theano and tensorflow backends are supported. However compile times are very high in theano, and tensorflow is highly recommended.
-- `train_frcnn.py` can be used to train a model. To train on Pascal VOC data, simply do:
-`python train_frcnn.py -p /path/to/pascalvoc/`. 
-- the Pascal VOC data set (images and annotations for bounding boxes around the classified objects) can be obtained from: http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar
-- simple_parser.py provides an alternative way to input data, using a text file. Simply provide a text file, with each
+## USAGE:
+* Both theano and tensorflow backends are supported. However compile times are very high in theano, and tensorflow is highly recommended.
+* `train_frcnn.py` can be used to train a model.
+* Running `train_frcnn.py` will write weights to disk to an hdf5 file, as well as all the setting of the training run to a `pickle` file. These settings can then be loaded by `test_frcnn.py` for any testing.
+* `simple_parser.py` provides an alternative way to input data, using a text file. Simply provide a text file, with each
 line containing:
 
     `filepath,x1,y1,x2,y2,class_name`
@@ -23,13 +22,20 @@ line containing:
     The classes will be inferred from the file. To use the simple parser instead of the default pascal voc style parser,
     use the command line option `-o simple`. For example `python train_frcnn.py -o simple -p my_data.txt`.
 
-- Running `train_frcnn.py` will write weights to disk to an hdf5 file, as well as all the setting of the training run to a `pickle` file. These
-settings can then be loaded by `test_frcnn.py` for any testing.
 
-- test_frcnn.py can be used to perform inference, given pretrained weights and a config file. Specify a path to the folder containing
-images:
-    `python test_frcnn.py -p /path/to/test_data/`
+
+* test_frcnn.py can be used to perform inference, given pretrained weights and a config file. Specify a path to the folder containing
+images and a path to the location of the config file
+    `python test_frcnn.py -p /path/to/test_data/` --config_filename /path/to/config.pickle
 - Data augmentation can be applied by specifying `--hf` for horizontal flips, `--vf` for vertical flips and `--rot` for 90 degree rotations
+ 
+
+## PASCAL VOC
+To train on Pascal VOC data, simply do:
+`python train_frcnn.py -p /path/to/pascalvoc/`. 
+
+
+- the Pascal VOC data set (images and annotations for bounding boxes around the classified objects) can be obtained from: http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar
 
 
 
@@ -56,3 +62,7 @@ ISSUES:
 - This repo was developed using `python2`. `python3` should work thanks to the contribution of a number of users.
 
 - If you run out of memory, try reducing the number of ROIs that are processed simultaneously. Try passing a lower `-n` to `train_frcnn.py`. Alternatively, try reducing the image size from the default value of 600 (this setting is found in `config.py`.
+- If you get the following error:
+`ValueError: Shape must be rank 1 but is rank 0 for 'bn_conv1/Reshape_4' (op: 'Reshape') with input shapes: [1,1,1,64], [].`
+    then you need to apply this change to your keras package: 
+    In keras version - 2.2.4 -> backend --> tesnorflow_backend.py : change "()" to "[ ]" in line no 1908,1910,1914, 1918.
