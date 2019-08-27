@@ -64,5 +64,6 @@ Example output:
 - If you run out of memory, try reducing the number of ROIs that are processed simultaneously. Try passing a lower `-n` to `train_frcnn.py`. Alternatively, try reducing the image size from the default value of 600 (this setting is found in `config.py`.
 - If you get the following error:
 `ValueError: Shape must be rank 1 but is rank 0 for 'bn_conv1/Reshape_4' (op: 'Reshape') with input shapes: [1,1,1,64], [].`
-    then you need to apply this change to your keras package: 
-    In keras version - 2.2.4 -> backend --> tesnorflow_backend.py : change "()" to "[ ]" in line no 1908,1910,1914, 1918.
+    * then you need to apply this change to your keras package: 
+      In keras version - 2.2.4 -> backend --> tesnorflow_backend.py : change "()" to "[ ]" in line no 1908,1910,1914, 1918.
+    * or, downgrade keras to 2.1.6
