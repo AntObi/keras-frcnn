@@ -103,7 +103,7 @@ num_imgs = len(all_imgs)
 train_imgs = [s for s in all_imgs if s['imageset'] == 'trainval']
 val_imgs = [s for s in all_imgs if s['imageset'] == 'test']
 
-print(f'Num train samples {len(train_imgs}')
+print(f'Num train samples {len(train_imgs)}')
 print(f'Num val samples {len(val_imgs)}')
 
 
